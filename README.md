@@ -1,16 +1,74 @@
-# React + Vite
+# Job Portal — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## Objective
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The main goal of this project is to build a **Job Portal Web Application** that connects **students seeking job opportunities** with **recruiters offering employment**.  
+The frontend focuses on providing an **intuitive, responsive, and role-based user experience** using modern web technologies.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+| Category | Technology |
+|-----------|-------------|
+| **Frontend Framework** | React.js (with Vite) |
+| **State Management** | Redux |
+| **Styling** | Tailwind CSS, Shadcn UI |
+| **Build Tool** | Vite |
+| **File Storage** | AWS S3 |
+| **Version Control** | Git, GitHub |
+| **Deployment** | Vercel |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+## Key Features
+
+- **Authentication & Authorization**
+  - Separate login and signup for **Students** and **Recruiters**
+  - JWT token-based access control (handled via backend)
+  
+- **Recruiter Features**
+  - Register and login  
+  - Register and get company  
+  - Create, edit, and delete job posts  
+  - View applicants with resume access  
+  - Update application status (Pending, Under Review,Interview Scheduled, Hired, Rejected)
+  - Pagination to comapny list and job list for better performance
+  - loading/spinner component when data fetched
+
+- **Student Features**
+  - Register and login  
+  - Browse all available job listings
+  - Search functionality for job listings  
+  - View detailed job descriptions  
+  - Apply for jobs by uploading resumes  
+  - View applied jobs and track status  
+  - Edit profile (update skills, resume, photo)
+  - Pagination to job list for better performance
+  - loading/spinner component when data fetched
+
+- **UI/UX**
+  - Responsive layout using Tailwind CSS  
+  - Interactive components via Shadcn UI  
+
+---
+
+## Installation & Setup
+
+### Clone the repository
+```bash
+git clone https://github.com/your-username/job-portal-frontend.git
+```
+### Navigate into the project directory
+```bash
+cd job-portal-frontend
+```
+
+### Install dependencies
+```bash
+npm install
+```
+### Run the development server
+```bash
+npm run dev
+```
