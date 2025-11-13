@@ -72,3 +72,8 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Developed By
+
+**[Kamlesh Chandel](https://github.com/kamlesh-chandel)**  
+> MERN Stack Developer | Passionate about building scalable and secure web applications
