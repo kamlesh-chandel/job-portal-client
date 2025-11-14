@@ -46,9 +46,14 @@ export const Login = () => {
       newErrors.password = 'Password is required';
     } else if (input.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters long';
-    }
-    if (!input.role) {
-      newErrors.role = 'Please select a role';
+    } else if (!/(?=.*[a-z])/.test(input.password)) {
+      newErrors.password =
+        'Password must contain at least one lowercase letter';
+    } else if (!/(?=.*[A-Z])/.test(input.password)) {
+      newErrors.password =
+        'Password must contain at least one uppercase letter';
+    } else if (!/(?=.*\d)/.test(input.password)) {
+      newErrors.password = 'Password must contain at least one number';
     }
 
     setErrors(newErrors);
@@ -57,7 +62,7 @@ export const Login = () => {
 
   const submitHandler = async e => {
     e.preventDefault();
-
+console.log(input)
     if (!validateForm()) {
       toast.error("Please fix the errors before submitting");
       return;
@@ -87,11 +92,11 @@ export const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate('/');
+  //   }
+  // }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -178,54 +183,6 @@ export const Login = () => {
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <span className="w-1 h-1 bg-red-600 rounded-full"></span>
                     {errors.password}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-3">
-                <Label className="text-sm font-medium text-gray-700">
-                  I am a
-                </Label>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 transition-colors">
-                    <Input
-                      type="radio"
-                      name="role"
-                      value="student"
-                      className="cursor-pointer"
-                      checked={input.role === 'student'}
-                      onChange={changeEventHandler}
-                      id="student"
-                    />
-                    <Label
-                      htmlFor="student"
-                      className="cursor-pointer text-sm font-medium"
-                    >
-                      Student
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 transition-colors">
-                    <Input
-                      type="radio"
-                      name="role"
-                      value="recruiter"
-                      checked={input.role === 'recruiter'}
-                      onChange={changeEventHandler}
-                      className="cursor-pointer"
-                      id="recruiter"
-                    />
-                    <Label
-                      htmlFor="recruiter"
-                      className="cursor-pointer text-sm font-medium"
-                    >
-                      Recruiter
-                    </Label>
-                  </div>
-                </div>
-                {errors.role && (
-                  <p className="text-sm text-red-600 flex items-center gap-1">
-                    <span className="w-1 h-1 bg-red-600 rounded-full"></span>
-                    {errors.role}
                   </p>
                 )}
               </div>
