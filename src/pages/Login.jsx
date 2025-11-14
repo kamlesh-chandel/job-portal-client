@@ -1,38 +1,38 @@
-import { useEffect, useState } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { RadioGroup } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { USER_API_END_POINT } from "../utils/contant";
-import { toast } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuthUser, setloading } from "../redux/authSlice.js";
-import { Loader2, Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { RadioGroup } from '@/components/ui/radio-group';
+import { Button } from '@/components/ui/button';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { USER_API_END_POINT } from '../utils/contant';
+import { toast } from 'sonner';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthUser, setloading } from '../redux/authSlice.js';
+import { Loader2, Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 
 export const Login = () => {
   const [input, setInput] = useState({
-    email: "",
-    password: "",
-    role: "",
+    email: '',
+    password: '',
+    role: '',
   });
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
-  const { loading, user } = useSelector((store) => store.auth);
+  const { loading, user } = useSelector(store => store.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const changeEventHandler = (e) => {
+  const changeEventHandler = e => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
 
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors({ ...errors, [name]: "" });
+      setErrors({ ...errors, [name]: '' });
     }
   };
 
@@ -40,49 +40,49 @@ export const Login = () => {
     const newErrors = {};
 
     if (!input.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) {
-      newErrors.email = "Please enter a valid email address";
+      newErrors.email = 'Please enter a valid email address';
     }
     if (!input.password.trim()) {
-      newErrors.password = "Password is required";
+      newErrors.password = 'Password is required';
     } else if (input.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters long";
+      newErrors.password = 'Password must be at least 8 characters long';
     }
     if (!input.role) {
-      newErrors.role = "Please select a role";
+      newErrors.role = 'Please select a role';
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = async e => {
     e.preventDefault();
 
     if (!validateForm()) {
-    //   toast.error("Please fix the errors before submitting");
-    return;
+      //   toast.error("Please fix the errors before submitting");
+      return;
     }
 
     dispatch(setloading(true));
     try {
       const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         withCredentials: true,
       });
 
       if (res.data.success) {
         dispatch(setAuthUser(res.data.user));
-        navigate("/");
+        navigate('/');
         toast.success(res.data.message);
       }
     } catch (error) {
       console.log(error);
       toast.error(
-        error.response?.data?.message || "Login failed. Please try again."
+        error.response?.data?.message || 'Login failed. Please try again.'
       );
     } finally {
       dispatch(setloading(false));
@@ -91,7 +91,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate('/');
     }
   }, []);
 
@@ -130,7 +130,7 @@ export const Login = () => {
                     name="email"
                     onChange={changeEventHandler}
                     className={`pl-10 h-12 ${
-                      errors.email ? "border-red-500 focus:border-red-500" : ""
+                      errors.email ? 'border-red-500 focus:border-red-500' : ''
                     }`}
                   />
                 </div>
@@ -153,15 +153,15 @@ export const Login = () => {
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <Input
                     id="password"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="Enter your password"
                     value={input.password}
                     name="password"
                     onChange={changeEventHandler}
                     className={`pl-10 pr-10 h-12 ${
                       errors.password
-                        ? "border-red-500 focus:border-red-500"
-                        : ""
+                        ? 'border-red-500 focus:border-red-500'
+                        : ''
                     }`}
                   />
                   <button
@@ -195,7 +195,7 @@ export const Login = () => {
                       name="role"
                       value="student"
                       className="cursor-pointer"
-                      checked={input.role === "student"}
+                      checked={input.role === 'student'}
                       onChange={changeEventHandler}
                       id="student"
                     />
@@ -211,7 +211,7 @@ export const Login = () => {
                       type="radio"
                       name="role"
                       value="recruiter"
-                      checked={input.role === "recruiter"}
+                      checked={input.role === 'recruiter'}
                       onChange={changeEventHandler}
                       className="cursor-pointer"
                       id="recruiter"
@@ -243,13 +243,13 @@ export const Login = () => {
                     Signing in...
                   </> */}
                 {/* ) : ( */}
-                  "Sign In"
+                "Sign In"
                 {/* )} */}
               </Button>
 
               <div className="text-center">
                 <span className="text-gray-600 text-sm">
-                  Don't have an account?{" "}
+                  Don't have an account?{' '}
                   <Link
                     to="/signup"
                     className="text-primary hover:text-primary/80 font-medium transition-colors"
