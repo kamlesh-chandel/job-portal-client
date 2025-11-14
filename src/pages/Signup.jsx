@@ -22,12 +22,10 @@ import { setloading } from '../redux/authSlice';
 
 export const Signup = () => {
   const [input, setInput] = useState({
-    fullname: '',
+    name: '',
     email: '',
-    phoneNumber: '',
     password: '',
     role: '',
-    file: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -45,24 +43,20 @@ export const Signup = () => {
       setErrors({ ...errors, [name]: '' });
     }
   };
+
   const validateForm = () => {
     const newErrors = {};
 
-    if (!input.fullname.trim()) {
-      newErrors.fullname = 'Full name is required';
-    } else if (input.fullname.trim().length < 2) {
-      newErrors.fullname = 'Full name must be at least 2 characters long';
+    if (!input.name.trim()) {
+      newErrors.name = 'Full name is required';
+    } else if (input.name.trim().length < 2) {
+      newErrors.name = 'Full name must be at least 2 characters long';
     }
 
     if (!input.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) {
       newErrors.email = 'Please enter a valid email address';
-    }
-    if (!input.phoneNumber.trim()) {
-      newErrors.phoneNumber = 'Phone number is required';
-    } else if (!/^[0-9]{10}$/.test(input.phoneNumber.replace(/\D/g, ''))) {
-      newErrors.phoneNumber = 'Please enter a valid 10-digit phone number';
     }
     if (!input.password.trim()) {
       newErrors.password = 'Password is required';
@@ -94,18 +88,10 @@ export const Signup = () => {
     }
 
     dispatch(setloading(true));
-    const formData = new FormData();
-    formData.append('fullname', input.fullname);
-    formData.append('email', input.email);
-    formData.append('phoneNumber', input.phoneNumber);
-    formData.append('role', input.role);
-    formData.append('password', input.password);
-    if (input.file) formData.append('file', input.file);
-
     try {
-      const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
+      const res = await axios.post(`${USER_API_END_POINT}/register`, input, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
         withCredentials: true,
       });
@@ -148,27 +134,27 @@ export const Signup = () => {
             <form onSubmit={submitHandler} className="space-y-6">
               <div className="space-y-2">
                 <Label
-                  htmlFor="fullname"
+                  htmlFor="name"
                   className="text-sm font-medium text-gray-700"
                 >
-                  Full Name
+                 Name
                 </Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <Input
-                    id="fullname"
+                    id="name"
                     type="text"
                     placeholder="Enter your full name"
-                    value={input.fullname}
-                    name="fullname"
+                    value={input.name}
+                    name="name"
                     onChange={changeEventHandler}
-                    className={`pl-10 h-12 ${errors.fullname ? 'border-red-500 focus:border-red-500' : ''}`}
+                    className={`pl-10 h-12 ${errors.name ? 'border-red-500 focus:border-red-500' : ''}`}
                   />
                 </div>
-                {errors.fullname && (
+                {errors.name && (
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <span className="w-1 h-1 bg-red-600 rounded-full"></span>
-                    {errors.fullname}
+                    {errors.name}
                   </p>
                 )}
               </div>
@@ -196,33 +182,6 @@ export const Signup = () => {
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <span className="w-1 h-1 bg-red-600 rounded-full"></span>
                     {errors.email}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="phoneNumber"
-                  className="text-sm font-medium text-gray-700"
-                >
-                  Phone Number
-                </Label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input
-                    id="phoneNumber"
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    value={input.phoneNumber}
-                    name="phoneNumber"
-                    onChange={changeEventHandler}
-                    className={`pl-10 h-12 ${errors.phoneNumber ? 'border-red-500 focus:border-red-500' : ''}`}
-                  />
-                </div>
-                {errors.phoneNumber && (
-                  <p className="text-sm text-red-600 flex items-center gap-1">
-                    <span className="w-1 h-1 bg-red-600 rounded-full"></span>
-                    {errors.phoneNumber}
                   </p>
                 )}
               </div>
@@ -313,30 +272,6 @@ export const Signup = () => {
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <span className="w-1 h-1 bg-red-600 rounded-full"></span>
                     {errors.role}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="file"
-                  className="text-sm font-medium text-gray-700"
-                >
-                  Profile Photo (Optional)
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="file"
-                    accept="image/*"
-                    type="file"
-                    className="cursor-pointer h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
-                    //  onChange={changeFileHandler}
-                  />
-                </div>
-                {errors.file && (
-                  <p className="text-sm text-red-600 flex items-center gap-1">
-                    <span className="w-1 h-1 bg-red-600 rounded-full"></span>
-                    {errors.file}
                   </p>
                 )}
               </div>

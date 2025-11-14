@@ -29,8 +29,6 @@ export const Login = () => {
   const changeEventHandler = e => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
-
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }
@@ -61,7 +59,7 @@ export const Login = () => {
     e.preventDefault();
 
     if (!validateForm()) {
-      //   toast.error("Please fix the errors before submitting");
+      toast.error("Please fix the errors before submitting");
       return;
     }
 
@@ -235,16 +233,16 @@ export const Login = () => {
               <Button
                 type="submit"
                 className="w-full h-12 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-medium rounded-lg transition-all duration-200 btn-animate"
-                //disabled={loading}
+                disabled={loading}
               >
-                {/* {loading ? (
+                {loading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Signing in...
-                  </> */}
-                {/* ) : ( */}
+                  </>
+                ) : ( 
                 "Sign In"
-                {/* )} */}
+               )}
               </Button>
 
               <div className="text-center">
