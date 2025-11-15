@@ -4,12 +4,11 @@ import { Input } from '@/components/ui/input';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { USER_API_END_POINT } from '../utils/contant';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser, setloading } from '../redux/authSlice.js';
 import { Loader2, Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { loginApi } from '@/api/auth.api.js';
 
 export const Login = () => {
   const [input, setInput] = useState({
@@ -62,7 +61,6 @@ export const Login = () => {
 
   const submitHandler = async e => {
     e.preventDefault();
-console.log(input)
     if (!validateForm()) {
       toast.error("Please fix the errors before submitting");
       return;
@@ -70,12 +68,7 @@ console.log(input)
 
     dispatch(setloading(true));
     try {
-      const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      const res = await loginApi(input)
 
       if (res.data.success) {
         dispatch(setAuthUser(res.data.user));
@@ -91,12 +84,6 @@ console.log(input)
       dispatch(setloading(false));
     }
   };
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate('/');
-  //   }
-  // }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -189,8 +176,7 @@ console.log(input)
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-medium rounded-lg transition-all duration-200 btn-animate"
-                disabled={loading}
+              className="w-full h-12 bg-gradient-to-r from-primary to-primary/80"   disabled={loading}
               >
                 {loading ? (
                   <>
@@ -198,7 +184,7 @@ console.log(input)
                     Signing in...
                   </>
                 ) : ( 
-                "Sign In"
+                "Login"
                )}
               </Button>
 

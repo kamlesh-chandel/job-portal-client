@@ -4,8 +4,6 @@ import { Input } from '@/components/ui/input';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { USER_API_END_POINT } from '../utils/contant.js';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,6 +17,7 @@ import {
   Upload,
 } from 'lucide-react';
 import { setloading } from '../redux/authSlice';
+import { registerApi } from '@/api/auth.api';
 
 export const Signup = () => {
   const [input, setInput] = useState({
@@ -81,20 +80,15 @@ export const Signup = () => {
 
   const submitHandler = async e => {
     e.preventDefault();
-    console.log(input);
     if (!validateForm()) {
       toast.error('Please fix the errors before submitting');
       return;
     }
 
     dispatch(setloading(true));
+
     try {
-      const res = await axios.post(`${USER_API_END_POINT}/register`, input, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      const res = await registerApi(input);
       if (res.data.success) {
         toast.success(res.data.message);
         navigate('/login');
@@ -109,12 +103,6 @@ export const Signup = () => {
       dispatch(setloading(false));
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -153,7 +141,6 @@ export const Signup = () => {
                 </div>
                 {errors.name && (
                   <p className="text-sm text-red-600 flex items-center gap-1">
-                    <span className="w-1 h-1 bg-red-600 rounded-full"></span>
                     {errors.name}
                   </p>
                 )}
@@ -180,8 +167,7 @@ export const Signup = () => {
                 </div>
                 {errors.email && (
                   <p className="text-sm text-red-600 flex items-center gap-1">
-                    <span className="w-1 h-1 bg-red-600 rounded-full"></span>
-                    {errors.email}
+                     {errors.email}
                   </p>
                 )}
               </div>
@@ -278,8 +264,7 @@ export const Signup = () => {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-medium rounded-lg transition-all duration-200 btn-animate"
-              >
+             className="w-full h-12 bg-gradient-to-r from-primary to-primary/80"  >
                 {loading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
