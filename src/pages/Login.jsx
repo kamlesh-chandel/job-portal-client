@@ -69,8 +69,8 @@ export const Login = () => {
     dispatch(setloading(true));
     try {
       const res = await loginApi(input)
-
       if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
         dispatch(setAuthUser(res.data.user));
         navigate('/');
         toast.success(res.data.message);
