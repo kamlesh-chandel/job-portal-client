@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser, setloading } from '../redux/authSlice.js';
 import { Loader2, Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { loginApi } from '@/api/auth.api.js';
+import Navbar from '@/components/Navbar.jsx';
 
 export const Login = () => {
   const [input, setInput] = useState({
@@ -87,6 +88,7 @@ export const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <Navbar />
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4">
         <div className="w-full max-w-md">
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">

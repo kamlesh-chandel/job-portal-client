@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { setloading } from '../redux/authSlice';
 import { registerApi } from '@/api/auth.api';
+import Navbar from '@/components/Navbar';
 
 export const Signup = () => {
   const [input, setInput] = useState({
@@ -106,6 +107,7 @@ export const Signup = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <Navbar />
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-8">
         <div className="w-full max-w-lg">
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">

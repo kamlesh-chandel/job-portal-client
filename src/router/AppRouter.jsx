@@ -32,7 +32,7 @@ export const appRouter = createBrowserRouter([
     element: <Jobs />,
   },
   {
-    path: '/saved',
+    path: '/jobs/saved',
     element: <Saved />,
   },
   {
