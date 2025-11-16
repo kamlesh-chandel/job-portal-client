@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser, setloading } from '../redux/authSlice.js';
 import { Loader2, Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
-import { loginApi } from '@/api/auth.api.js';
+import { loginUser } from '@/api/auth.api.js';
 
 export const Login = () => {
   const [input, setInput] = useState({
@@ -68,7 +68,7 @@ export const Login = () => {
 
     dispatch(setloading(true));
     try {
-      const res = await loginApi(input)
+      const res = await loginUser(input)
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
         dispatch(setAuthUser(res.data.user));

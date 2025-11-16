@@ -17,7 +17,7 @@ import {
   Upload,
 } from 'lucide-react';
 import { setloading } from '../redux/authSlice';
-import { registerApi } from '@/api/auth.api';
+import { registerUser } from '@/api/auth.api';
 
 export const Signup = () => {
   const [input, setInput] = useState({
@@ -88,7 +88,7 @@ export const Signup = () => {
     dispatch(setloading(true));
 
     try {
-      const res = await registerApi(input);
+      const res = await registerUser(input);
       if (res.data.success) {
         toast.success(res.data.message);
         navigate('/login');
