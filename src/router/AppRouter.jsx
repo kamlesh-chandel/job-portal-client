@@ -7,19 +7,17 @@ import { Signup } from '@/pages/Signup';
 import PublicRoute from '@/routes/PublicRoute';
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../layout/Layout.jsx';
-import RecruiterRoute from '../routes/RecruiterRoute.jsx';
-import StudentRoute from '@/routes/StudentRoute.jsx';
 import { AdminJobs } from '@/pages/admin/AdminJobs.jsx';
 import { AdminCompanies } from '../pages/admin/AdminCompanies';
+import ProtectedRoute from '@/routes/ProtectedRoute';
 
 export const appRouter = createBrowserRouter([
+
   {
-    path: '/',
     element: <Layout />,
     children: [
-      { path: '', element: <Home /> },
       {
-        path: 'signup',
+        path: '/signup',
         element: (
           <PublicRoute>
             <Signup />
@@ -27,35 +25,48 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: 'login',
+        path: '/login',
         element: (
           <PublicRoute>
             <Login />
           </PublicRoute>
         ),
       },
+    ],
+  },
+
+  {
+    path: '/',
+    element: (
+      <ProtectedRoute roles={['student']}>
+        <Layout />
+      </ProtectedRoute>
+    ),
+    children: [
+      { index: true, element: <Home /> },
+
       {
         path: 'jobs',
         element: (
-          <StudentRoute>
+          <ProtectedRoute roles={['student']}>
             <Jobs />
-          </StudentRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: 'jobs/saved',
         element: (
-          <StudentRoute>
+          <ProtectedRoute roles={['student']}>
             <Saved />
-          </StudentRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: 'profile',
         element: (
-          <StudentRoute>
+          <ProtectedRoute roles={['student']}>
             <Profile />
-          </StudentRoute>
+          </ProtectedRoute>
         ),
       },
     ],
@@ -63,9 +74,9 @@ export const appRouter = createBrowserRouter([
   {
     path: '/admin',
     element: (
-      <RecruiterRoute>
+      <ProtectedRoute roles={['recruiter']}>
         <Layout />
-      </RecruiterRoute>
+      </ProtectedRoute>
     ),
     children: [
       { path: 'companies', element: <AdminCompanies /> },
