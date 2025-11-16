@@ -6,9 +6,7 @@ import Navbar from '@/components/Navbar.jsx';
 export const Home = () => {
   return (
     <div>
-      <Navbar /> 
       <HeroSection />
-      <Footer />
     </div>
   );
 };

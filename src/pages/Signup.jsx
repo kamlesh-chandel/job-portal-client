@@ -5,7 +5,6 @@ import { RadioGroup } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   Loader2,
   Eye,
@@ -16,9 +15,7 @@ import {
   Phone,
   Upload,
 } from 'lucide-react';
-import { setloading } from '../redux/authSlice';
 import { registerUser } from '@/api/auth.api';
-import Navbar from '@/components/Navbar';
 
 export const Signup = () => {
   const [input, setInput] = useState({
@@ -27,12 +24,11 @@ export const Signup = () => {
     password: '',
     role: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const { loading, user } = useSelector(state => state.auth);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const changeEventHandler = e => {
@@ -86,7 +82,7 @@ export const Signup = () => {
       return;
     }
 
-    dispatch(setloading(true));
+    setLoading(true)
 
     try {
       const res = await registerUser(input);
@@ -101,13 +97,12 @@ export const Signup = () => {
           'Registration failed. Please try again.'
       );
     } finally {
-      dispatch(setloading(false));
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <Navbar />
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-8">
         <div className="w-full max-w-lg">
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">

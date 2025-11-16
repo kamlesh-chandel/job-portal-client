@@ -6,10 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthUser, setloading } from '../redux/authSlice.js';
+import { setAuthUser } from '../redux/authSlice.js';
 import { Loader2, Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { loginUser } from '@/api/auth.api.js';
-import Navbar from '@/components/Navbar.jsx';
 
 export const Login = () => {
   const [input, setInput] = useState({
@@ -18,10 +17,10 @@ export const Login = () => {
     role: '',
   });
 
+  const [loading, setLoading] = useState(false);
+
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-
-  const { loading, user } = useSelector(store => store.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -67,12 +66,12 @@ export const Login = () => {
       return;
     }
 
-    dispatch(setloading(true));
+    setLoading(true);
     try {
       const res = await loginUser(input)
       if (res.data.success) {
-        localStorage.setItem("token", res.data.token);
-        dispatch(setAuthUser(res.data.user));
+        localStorage.setItem('accessToken', res.data.data.accessToken);
+        dispatch(setAuthUser(res.data.data.user));
         navigate('/');
         toast.success(res.data.message);
       }
@@ -82,13 +81,12 @@ export const Login = () => {
         error.response?.data?.message || 'Login failed. Please try again.'
       );
     } finally {
-      dispatch(setloading(false));
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <Navbar />
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4">
         <div className="w-full max-w-md">
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
