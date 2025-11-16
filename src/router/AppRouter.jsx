@@ -4,6 +4,7 @@ import { Login } from '@/pages/Login';
 import { Profile } from '@/pages/Profile';
 import { Saved } from '@/pages/Saved';
 import { Signup } from '@/pages/Signup';
+import PublicRoute from '@/routes/PublicRoute';
 import { createBrowserRouter } from 'react-router-dom';
 
 export const appRouter = createBrowserRouter([
@@ -13,11 +14,18 @@ export const appRouter = createBrowserRouter([
   },
   {
     path: '/signup',
-    element: <Signup />,
+    element:
+      <PublicRoute>
+        <Signup />
+      </PublicRoute>
+
   },
   {
     path: '/login',
-    element: <Login />,
+    element:
+      <PublicRoute>
+        <Login />
+      </PublicRoute>
   },
   {
     path: '/jobs',
