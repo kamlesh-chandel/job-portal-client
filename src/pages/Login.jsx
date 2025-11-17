@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthUser, setloading } from '../redux/authSlice.js';
+import { setAuthUser } from '../redux/authSlice.js';
 import { Loader2, Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { loginUser } from '@/api/auth.api.js';
 
@@ -17,10 +17,10 @@ export const Login = () => {
     role: '',
   });
 
+  const [loading, setLoading] = useState(false);
+
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-
-  const { loading, user } = useSelector(store => store.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -66,12 +66,12 @@ export const Login = () => {
       return;
     }
 
-    dispatch(setloading(true));
+    setLoading(true);
     try {
       const res = await loginUser(input)
       if (res.data.success) {
-        localStorage.setItem("token", res.data.token);
-        dispatch(setAuthUser(res.data.user));
+        localStorage.setItem('accessToken', res.data.data.accessToken);
+        dispatch(setAuthUser(res.data.data.user));
         navigate('/');
         toast.success(res.data.message);
       }
@@ -81,7 +81,7 @@ export const Login = () => {
         error.response?.data?.message || 'Login failed. Please try again.'
       );
     } finally {
-      dispatch(setloading(false));
+      setLoading(false);
     }
   };
 
