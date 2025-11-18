@@ -35,14 +35,13 @@ export const CompaniesTable = () => {
 
   return (
     <div>
-      <Table>
+      <Table className="ml-25">
         <TableCaption>A list of your registered companies</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Logo</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Date</TableHead>
-            <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -74,24 +73,6 @@ export const CompaniesTable = () => {
                       <TableCell>{company.name}</TableCell>
                       <TableCell>
                         {new Date(company.createdAt).toDateString()}
-                      </TableCell>
-                      <TableCell>
-                        <Popover>
-                          <PopoverTrigger>
-                            <MoreHorizontal />
-                          </PopoverTrigger>
-                          <PopoverContent className="w-32 ">
-                            <div
-                              onClick={() => {
-                                navigate(`/admin/company/${company.id}`);
-                              }}
-                              className="flex items-center w-fit gap-2 cursor-pointer "
-                            >
-                              <Edit2 className="w-4" />
-                              <span>Edit</span>
-                            </div>
-                          </PopoverContent>
-                        </Popover>
                       </TableCell>
                     </TableBody>
                   );

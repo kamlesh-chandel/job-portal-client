@@ -11,8 +11,6 @@ export const HeroSection = () => {
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10"></div>
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-10">
         <div className="text-center">
           <div className="inline-flex items-center gap-2 px-4  rounded-full bg-primary/10 text-primary text-sm font-medium mb-2 ">
