@@ -10,9 +10,11 @@ import Layout from '../layout/Layout.jsx';
 import { AdminJobs } from '@/pages/admin/AdminJobs.jsx';
 import { AdminCompanies } from '../pages/admin/AdminCompanies';
 import ProtectedRoute from '@/routes/ProtectedRoute';
+import CompanyCreate from '@/pages/admin/CreateCompany.jsx';
+import CreateJob from '@/pages/admin/CreateJob.jsx';
+import { Applicants } from '@/pages/admin/Applicants.jsx';
 
 export const appRouter = createBrowserRouter([
-
   {
     element: <Layout />,
     children: [
@@ -81,6 +83,15 @@ export const appRouter = createBrowserRouter([
     children: [
       { path: 'companies', element: <AdminCompanies /> },
       { path: 'jobs', element: <AdminJobs /> },
+      { path: 'jobs/create', element: <CreateJob /> },
+      {
+        path: 'company/create',
+        element: <CompanyCreate />,
+      },
+      {
+        path: 'submission/applicants/:job_id',
+        element: <Applicants/>
+      },
     ],
   },
 ]);
