@@ -41,7 +41,7 @@ export const EditProfile = () => {
 
     try {
       setLoading(true);
-      const res = await axiosInstance.put('/user/update', formData, {
+      const res = await axiosInstance.put('/users/me', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

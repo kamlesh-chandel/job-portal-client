@@ -17,10 +17,10 @@ export const fetchJobDetail = id => {
 };
 
 export const applyJob = job_id => {
-  return axios.post(`/application/apply`, { job_id });
+  return axios.post(`/submissions`, { job_id });
 };
 
 export const getAppliedJobs = () => {
-  return axios.get('/application/applied');
+  return axios.get('/submissions');
 };
 

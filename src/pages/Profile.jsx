@@ -43,7 +43,7 @@ export const Profile = () => {
 
       try {
         const res = await axios.put(
-          `${import.meta.env.VITE_API_BASE_URL}/user/update-photo`,
+          `${import.meta.env.VITE_API_BASE_URL}/users/me/photo`,
           formData,
           {
             withCredentials: true,

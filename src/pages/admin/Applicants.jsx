@@ -13,6 +13,7 @@ export const Applicants = () => {
   const fetchApplicants = async () => {
     try {
       const res = await getApplicants(params.job_id);
+      console.log(res.data.data);
       if (res.data.success) {
         dispatch(setJobSubmissions(res.data.data));
       }

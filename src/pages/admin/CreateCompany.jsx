@@ -173,7 +173,7 @@ const CompanyCreate = () => {
           </Button>
         ) : (
           <Button type="submit" className="w-full my-6">
-            Update
+            Create
           </Button>
         )}
       </form>
