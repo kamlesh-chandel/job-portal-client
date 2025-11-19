@@ -25,7 +25,7 @@ export const SavedJobs = () => {
     fetchBookmarkJobs();
   }, []);
   return (
-    <div className="max-w-7xl mx-auto mt-5">
+    <div className="max-w-7xl mx-auto mt-5  min-h-[68vh] ">
       <h1 className="text-3xl font-bold my-4">Saved Jobs</h1>
       <div className="flex gap-5">
         {bookmarkJobs.items.length <= 0 ? (

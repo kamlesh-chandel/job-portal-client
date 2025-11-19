@@ -40,16 +40,21 @@ export const Profile = () => {
     const updatePhoto = async () => {
       const formData = new FormData();
       formData.append('profile', profilePhotoFile);
-
       try {
         const res = await axios.put(
           `${import.meta.env.VITE_API_BASE_URL}/users/me/photo`,
           formData,
           {
             withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              'Content-Type': 'multipart/form-data',
+            },
           }
         );
+
         if (res.data.success) {
+         dispatch(setAuthUser(res.data.data));
         }
       } catch (error) {
         console.log(error);
