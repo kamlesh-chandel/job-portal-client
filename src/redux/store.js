@@ -5,12 +5,14 @@ import authSlice from './authSlice.js';
 import companySlice from './companySlice';
 import jobSlice from './jobSlice';
 import submissionSlice from './submissionSlice';
+import bookmarkSlice from './bookmarkSlice';
 
 const rootReducer = combineReducers({
   auth: authSlice,
   company: companySlice,
   job: jobSlice,
-  submission: submissionSlice
+  submission: submissionSlice,
+  bookmark: bookmarkSlice,
 });
 
 const persistConfig = {
