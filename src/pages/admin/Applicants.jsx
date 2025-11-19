@@ -30,7 +30,7 @@ export const Applicants = () => {
       <h1 className="font-bold text-xl my-5">
         Applicants ({jobSubmissions.length})
       </h1>
-      <ApplicantsTable />
+      <ApplicantsTable fetchApplicants={fetchApplicants} />
     </div>
   );
 };
