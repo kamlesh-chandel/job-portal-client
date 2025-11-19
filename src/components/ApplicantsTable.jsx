@@ -9,7 +9,11 @@ import {
   TableRow,
 } from '../components/ui/table.jsx';
 import { useSelector } from 'react-redux';
-import { Popover, PopoverContent, PopoverTrigger } from '../components/ui/popover.jsx';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '../components/ui/popover.jsx';
 import { MoreHorizontal } from 'lucide-react';
 import { toast } from 'sonner';
 import { updateSubmissionStatus } from '@/api/submission.api.js';
@@ -22,27 +26,26 @@ const statuses = [
   'rejected',
 ];
 
-const ApplicantsTable = () => {
+const ApplicantsTable = ({ fetchApplicants }) => {
   const { jobSubmissions } = useSelector(store => store.submission);
+  const [openPopoverId, setOpenPopoverId] = useState(null);
 
-const handleStatusUpdate = async (newStatus, submissionId) => {
-  try {
-    const res = await updateSubmissionStatus(submissionId, newStatus);
+  const handleStatusUpdate = async (newStatus, submissionId) => {
+    try {
+      const res = await updateSubmissionStatus(submissionId, newStatus);
 
-    if (res.data.success) {
-      toast.success(res.data.message);
+      if (res.data.success) {
+        toast.success(res.data.message);
+        fetchApplicants();
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || 'Something went wrong');
     }
-  } catch (error) {
-    toast.error(error?.response?.data?.message || 'Something went wrong');
-  }
-};
-
+  };
 
   return (
-    <div>
+    <div className="min-h-[50vh]">
       <Table>
-        <TableCaption>A list of this Job's Applicants</TableCaption>
-
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
@@ -86,7 +89,12 @@ const handleStatusUpdate = async (newStatus, submissionId) => {
                   {application.status || 'pending'}
                 </TableCell>
                 <TableCell>
-                  <Popover>
+                  <Popover
+                    open={openPopoverId === application._id}
+                    onOpenChange={isOpen =>
+                      setOpenPopoverId(isOpen ? application._id : null)
+                    }
+                  >
                     <PopoverTrigger>
                       <MoreHorizontal />
                     </PopoverTrigger>
@@ -96,9 +104,10 @@ const handleStatusUpdate = async (newStatus, submissionId) => {
                         {statuses.map(s => (
                           <div
                             key={s}
-                            onClick={() =>
-                              handleStatusUpdate(s, application._id)
-                            }
+                            onClick={() => {
+                              handleStatusUpdate(s, application._id);
+                              setOpenPopoverId(null);
+                            }}
                             className="cursor-pointer capitalize hover:text-blue-500"
                           >
                             {s}
