@@ -5,7 +5,7 @@ import {
   TwitterIcon,
 } from 'lucide-react';
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
@@ -55,36 +55,36 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/jobs"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Browse Jobs
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/jobs/saved"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Companies
-                </a>
+                  Saved Jobs
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/profile"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Career Advice
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  About Us
-                </a>
+                  profile
+                </Link>
               </li>
             </ul>
           </div>
