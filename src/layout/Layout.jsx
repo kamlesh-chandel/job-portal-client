@@ -10,7 +10,7 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen">
+      <div>
         <Outlet />
       </div>
       {!hideFooter && <Footer />}
