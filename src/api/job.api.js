@@ -23,6 +23,6 @@ export const applyJob = job_id => {
 };
 
 export const getAppliedJobs = () => {
-  return axios.get('/application/applied');
+  return axios.get('/submissions/applied');
 };
 

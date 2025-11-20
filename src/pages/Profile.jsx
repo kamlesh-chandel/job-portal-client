@@ -4,71 +4,61 @@ import {
   AvatarImage,
   AvatarFallback,
 } from '../components/ui/avatar.jsx';
-import { Button } from '../components/ui/button';
 import { Mail, Pen } from 'lucide-react';
 import { Badge } from '../components/ui/badge';
-import { Label } from '../components/ui/label';
-//import AppliedJobTable from './AppliedJobTable';
-//import UpdateProfileDiolog from './UpdateProfileDiolog';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'sonner';
-import { setAuthUser } from '../redux/authSlice';
 import { Link } from 'react-router-dom';
 import { AppliedJobTable } from '@/components/AppliedJobTable.jsx';
 import { setAppliedJobs } from '@/redux/jobSlice.js';
 import { getAppliedJobs } from '@/api/job.api.js';
 import { useEffect } from 'react';
-import axios from 'axios';
-const isResume = true;
+import axios from '@/config/axiosConfig.js';
+import { setAuthUser } from '@/redux/authSlice';
 
 export const Profile = () => {
-  const [open, setOpen] = useState(false);
-  const { user } = useSelector(store => store.auth);
-
-  const [profilePhotoFile, setProfilePhotoFile] = useState(null);
-
   const dispatch = useDispatch();
+  const { user } = useSelector(store => store.auth);
+  const [profilePhotoFile, setProfilePhotoFile] = useState(null);
 
   const handleProfilePhotoChange = e => {
     const file = e.target.files[0];
     if (file) {
-      setProfilePhotoFile(file);
+       
+     setProfilePhotoFile(file);
+     void updatePhoto(file);
+    }
+  };
+
+  const updatePhoto = async (file) => {
+    const formData = new FormData();
+    formData.append('profile', file);
+
+    try {
+      const res = await axios.put('/users/me/photo', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      if (res.data.success) {
+        dispatch(setAuthUser(res.data.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchAppliedJobs = async () => {
+    try {
+      const res = await getAppliedJobs();
+      if (res.data.success) {
+        dispatch(setAppliedJobs(res.data.data));
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    const updatePhoto = async () => {
-      const formData = new FormData();
-      formData.append('profile', profilePhotoFile);
-
-      try {
-        const res = await axios.put(
-          `${import.meta.env.VITE_API_BASE_URL}/user/update-photo`,
-          formData,
-          {
-            withCredentials: true,
-          }
-        );
-        if (res.data.success) {
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    updatePhoto();
-  }, [profilePhotoFile]);
-
-  useEffect(() => {
-    const fetchAppliedJobs = async () => {
-      try {
-        const res = await getAppliedJobs();
-        if (res.data.success) {
-          dispatch(setAppliedJobs(res.data.data));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
     fetchAppliedJobs();
   }, []);
 

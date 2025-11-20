@@ -11,7 +11,6 @@ import { setAuthUser } from '@/redux/authSlice';
 export const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const { user } = useSelector(store => store.auth);
 
   const [name, setName] = useState(user?.name || '');
@@ -40,8 +39,7 @@ export const EditProfile = () => {
     }
 
     try {
-      setLoading(true);
-      const res = await axiosInstance.put('/user/update', formData, {
+      const res = await axiosInstance.put('/users/me', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
@@ -53,10 +51,7 @@ export const EditProfile = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
-    } finally {
-      setLoading(false);
     }
-    setOpen(false);
   };
 
   return (

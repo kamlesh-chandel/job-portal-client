@@ -9,8 +9,6 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-
-    // 🟦 PWA Plugin Added Below
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt'],

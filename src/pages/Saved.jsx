@@ -5,25 +5,27 @@ import { motion } from 'framer-motion';
 import { getBookmarkJobs } from '@/api/bookmark.api.js';
 import { setBookmarkJobs } from '@/redux/bookmarkSlice.js';
 import { toast } from 'sonner';
+
 export const SavedJobs = () => {
   const { bookmarkJobs } = useSelector(store => store.bookmark);
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchBookmarkJobs = async () => {
-      try {
-        const res = await getBookmarkJobs();
-        if(res.data.success){
-          dispatch(setBookmarkJobs(res.data.data));
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error(error.response.data.message);
+  const fetchBookmarkJobs = async () => {
+    try {
+      const res = await getBookmarkJobs();
+      if (res.data.success) {
+        dispatch(setBookmarkJobs(res.data.data));
       }
-    };
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
+  useEffect(() => {
     fetchBookmarkJobs();
   }, []);
+
   return (
     <div className="max-w-7xl mx-auto mt-5">
       <h1 className="text-3xl font-bold my-4">Saved Jobs</h1>
@@ -51,4 +53,3 @@ export const SavedJobs = () => {
     </div>
   );
 };
-
