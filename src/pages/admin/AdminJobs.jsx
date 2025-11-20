@@ -67,7 +67,9 @@ export const AdminJobs = () => {
         >
           Previous
         </Button>
-        <span className="border p-2">{page}</span>
+        <span className="border rounded-sm px-4 py-[5px] shadow-xs">
+          {page}
+        </span>
         <Button
           variant="outline"
           disabled={page === totalPages}
