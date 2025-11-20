@@ -54,7 +54,6 @@ const CreateJob = () => {
     const selectedCompany = companies.find(
       c => c.name.toLowerCase() === value.toLowerCase()
     );
-    console.log(selectedCompany)
     setInput({ ...input, companyId: selectedCompany?.id || '' });
   };
 

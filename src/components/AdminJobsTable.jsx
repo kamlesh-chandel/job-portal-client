@@ -26,11 +26,11 @@ const AdminJobsTable = () => {
   }, [searchJobByText, allAdminJobs]);
 
   return (
-    <div>
-      <Table>
-        <TableCaption>A list of your Posted Jobs</TableCaption>
+    <div className="min-h-[450px]">
+      <Table className="w-full">
+      
         <TableHeader>
-          <TableRow>
+          <TableRow className="h-14">
             <TableHead>Company Name</TableHead>
             <TableHead>Role</TableHead>
             <TableHead>Date</TableHead>
@@ -38,47 +38,58 @@ const AdminJobsTable = () => {
           </TableRow>
         </TableHeader>
 
-        {allAdminJobs.length <= 0 ? (
-          <span>You haven't Registered any Job yet.</span>
-        ) : (
-          <>
-            {filterJobs.length <= 0 ? (
-              <span>0 Search Result</span>
-            ) : (
-              <>
-                {filterJobs.map(job => {
-                  return (
-                    <TableBody>
-                      <TableCell>{job.company.name}</TableCell>
-                      <TableCell>{job.title}</TableCell>
-                      <TableCell>
-                        {new Date(job.createdAt).toDateString()}
-                      </TableCell>
-                      <TableCell>
-                        <Popover>
-                          <PopoverTrigger>
-                            <MoreHorizontal />
-                          </PopoverTrigger>
-                          <PopoverContent className="w-32">
-                            <div
-                              onClick={() => {
-                                navigate(`/admin/submission/applicants/${job.id}`);
-                              }}
-                              className="flex items-center w-fit gap-2 cursor-pointer mb-2"
-                            >
-                              <Eye className="w-4" />
-                              <span>Applicants</span>
-                            </div>
-                          </PopoverContent>
-                        </Popover>
-                      </TableCell>
-                    </TableBody>
-                  );
-                })}
-              </>
-            )}
-          </>
-        )}
+        <TableBody>
+          {allAdminJobs.length === 0 && (
+            <TableRow>
+              <TableCell
+                colSpan={4}
+                className="text-center text-muted-foreground py-10"
+              >
+                You haven't registered any job yet.
+              </TableCell>
+            </TableRow>
+          )}
+
+          {allAdminJobs.length > 0 && filterJobs.length === 0 && (
+            <TableRow>
+              <TableCell
+                colSpan={4}
+                className="text-center text-muted-foreground py-10"
+              >
+                0 Search Results
+              </TableCell>
+            </TableRow>
+          )}
+          {filterJobs.map(job => (
+            <TableRow key={job.id} className="h-16">
+              <TableCell className="font-medium">{job.company?.name}</TableCell>
+
+              <TableCell>{job.title}</TableCell>
+
+              <TableCell>{new Date(job.createdAt).toDateString()}</TableCell>
+
+              <TableCell>
+                <Popover>
+                  <PopoverTrigger>
+                    <MoreHorizontal className="cursor-pointer" />
+                  </PopoverTrigger>
+
+                  <PopoverContent className="w-32">
+                    <div
+                      onClick={() =>
+                        navigate(`/admin/submission/applicants/${job.id}`)
+                      }
+                      className="flex items-center w-fit gap-2 cursor-pointer mb-2"
+                    >
+                      <Eye className="w-4" />
+                      <span>Applicants</span>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
     </div>
   );

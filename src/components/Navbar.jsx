@@ -49,7 +49,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           <ul className="flex font-medium items-center gap-6">
             <ul className="flex font-medium items-center gap-6">
@@ -121,8 +120,6 @@ const Navbar = () => {
             </Popover>
           )}
         </div>
-
-        {/* Mobile menu button */}
         <div className="md:hidden">
           <Button
             variant="outline"

@@ -1,59 +1,34 @@
-import { Search, Briefcase, Users, TrendingUp, Star } from 'lucide-react';
 import React from 'react';
-import { Button } from './ui/button';
-//import { useDispatch } from "react-redux";
-//import { setSearchedQuery } from "../redux/jobSlice";
-import { useNavigate } from 'react-router-dom';
+import { Sparkles, Layers } from 'lucide-react';
 
-export const HeroSection = () => {
-  //const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+const HeroSection = () => {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-10">
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-4  rounded-full bg-primary/10 text-primary text-sm font-medium mb-2 ">
-            <Star className="w-4 h-4 fill-current" />
-            No. 1 Job Hunt Platform
-          </div>
+    <div className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100 min-h-[600px]">
+      <div className="absolute top-[-150px] right-[-150px] w-[400px] h-[400px] rounded-full bg-primary/10 blur-3xl"></div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Find Your{' '}
-            <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              Dream Job
-            </span>
-            <br />
-            Today
-          </h1>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 py-28 text-center">
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium shadow-sm mb-6">
+          <Sparkles className="w-4 h-4" />
+          No. 1 Job Hunt Platform
+        </div>
 
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Connect with top companies and discover opportunities that match
-            your skills and aspirations. Join thousands of professionals who
-            found their perfect career path.
-          </p>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
+          Find Your
+          <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent mx-2">
+            Dream Job
+          </span>
+          Today
+        </h1>
 
-          <div className="max-w-2xl mx-auto">
-            <div className="relative">
-              <div className="flex items-center bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    placeholder="Search for jobs, companies, or skills..."
-                    className="w-full h-14 pl-12 pr-4 text-lg border-none outline-none placeholder-gray-500"
-                    //onChange={(e) => dispatch(setSearchedQuery(e.target.value))}
-                  />
-                </div>
-                <Button
-                  onClick={() => navigate('/browse')}
-                  className="h-14 px-8 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-medium rounded-none rounded-r-2xl transition-all duration-200 btn-animate"
-                >
-                  <Search className="w-5 h-5 mr-2" />
-                  Search Jobs
-                </Button>
-              </div>
-            </div>
+        <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mt-4">
+          Connect with top companies and discover opportunities that match your
+          skills and aspirations. Join thousands of professionals who found
+          their perfect career path.
+        </p>
+
+        <div className="mt-14 flex justify-center">
+          <div className="w-full max-w-lg h-64 bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl shadow-inner border border-gray-200 flex items-center justify-center">
+            <Layers className="w-20 h-20 text-primary opacity-70" />
           </div>
         </div>
       </div>
