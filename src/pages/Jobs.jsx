@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAllJobs, setSearchedQuery } from '../redux/jobSlice';
 import { fetchAllJobs } from '@/api/job.api';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button'; 
+import { motion } from 'framer-motion';
 
 const LIMIT = 10;
 export const Jobs = () => {
   const dispatch = useDispatch();
   const { searchedQuery, allJobs } = useSelector(store => store.job);
   const [page, setPage] = useState(1);
-
   const fetchJobsFn = async () => {
     try {
       const res = await fetchAllJobs(searchedQuery, page, LIMIT);
@@ -90,7 +90,7 @@ export const Jobs = () => {
                     transition={{ duration: 0.3 }}
                     key={job._id}
                   >
-                    <Job job={job} />
+                    <Job job={job} fetchJobsFn={fetchJobsFn} />
                   </motion.div>
                 ))}
               </div>

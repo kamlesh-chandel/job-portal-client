@@ -14,6 +14,7 @@ import { getAppliedJobs } from '@/api/submission.api.js';
 import { useEffect } from 'react';
 import axios from '@/config/axiosConfig.js';
 import { setAuthUser } from '@/redux/authSlice';
+import { toast } from 'sonner';
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ export const Profile = () => {
       });
       if (res.data.success) {
         dispatch(setAuthUser(res.data.data));
+        toast.success(res.data.message);
       }
     } catch (error) {
       console.log(error);

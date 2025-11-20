@@ -7,7 +7,7 @@ import { setBookmarkJobs } from '@/redux/bookmarkSlice.js';
 import { toast } from 'sonner';
 
 export const SavedJobs = () => {
-  const { bookmarkJobs } = useSelector(store => store.bookmark);
+
   const dispatch = useDispatch();
 
   const fetchBookmarkJobs = async () => {
@@ -25,6 +25,8 @@ export const SavedJobs = () => {
   useEffect(() => {
     fetchBookmarkJobs();
   }, []);
+
+  const { bookmarkJobs } = useSelector(store => store.bookmark);
 
   return (
     <div className="max-w-7xl mx-auto mt-5">

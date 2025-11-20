@@ -19,6 +19,7 @@ export const AppliedJobTable = () => {
   };
 
   const renderJobStatus = status => {
+    console.log(status)
     switch (status) {
       case 'pending':
         return (
@@ -91,7 +92,7 @@ export const AppliedJobTable = () => {
                 <TableCell>
                   {item.job_id?.company_id?.name ?? 'Unknown'}
                 </TableCell>
-                <TableCell className="text-right">{renderJobStatus()}</TableCell>
+                <TableCell className="text-right">{renderJobStatus(item.status)}</TableCell>
               </TableRow>
             ))
           )}
