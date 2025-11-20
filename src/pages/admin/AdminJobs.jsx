@@ -10,9 +10,7 @@ import { recruiterJobs } from '@/api/job.api.js';
 export const AdminJobs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [input, setInput] = useState('');
-
   const [page, setPage] = useState(1);
   const [limit] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
@@ -22,27 +20,27 @@ export const AdminJobs = () => {
     dispatch(setSearchJobByText(input));
   }, [input]);
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        setLoading(true);
+  const fetchJobs = async () => {
+    try {
+      setLoading(true);
 
-        const res = await recruiterJobs(page, limit);
+      const res = await recruiterJobs(page, limit);
 
-        if (res.data.success) {
-          const { items, total, limit } = res.data.data;
+      if (res.data.success) {
+        const { items, total, limit } = res.data.data;
 
-          dispatch(setAllAdminJobs(items));
+        dispatch(setAllAdminJobs(items));
 
-          setTotalPages(Math.ceil(total / limit));
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
+        setTotalPages(Math.ceil(total / limit));
       }
-    };
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchJobs();
   }, [page]);
 
@@ -69,23 +67,7 @@ export const AdminJobs = () => {
         >
           Previous
         </Button>
-
-        <div className="flex gap-2">
-          {[...Array(totalPages)].map((_, idx) => {
-            const pageNum = idx + 1;
-            return (
-              <Button
-                key={pageNum}
-                variant={page === pageNum ? 'default' : 'outline'}
-                className="px-4"
-                onClick={() => setPage(pageNum)}
-              >
-                {pageNum}
-              </Button>
-            );
-          })}
-        </div>
-
+        <span className="border p-2">{page}</span>
         <Button
           variant="outline"
           disabled={page === totalPages}

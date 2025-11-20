@@ -1,7 +1,8 @@
 import axios from '@/config/axiosConfig';
 
 export const recruiterCompanies = (page, limit) => {
-  return axios.get(`/companies?page=${page}&limit=${limit}`);
+  const params = {page, limit};
+  return axios.get('/companies', {params});
 };
 
 export const createCompany = form => {

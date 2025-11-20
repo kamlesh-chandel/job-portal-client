@@ -6,30 +6,36 @@ import { fetchAllJobs } from '@/api/job.api';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+
 export const Jobs = () => {
   const dispatch = useDispatch();
   const { searchedQuery, allJobs } = useSelector(store => store.job);
   const [page, setPage] = useState(1);
   const limit = 6;
-  useEffect(() => {
-    const fetchJobsFn = async () => {
-      try {
-        const res = await fetchAllJobs(searchedQuery, page, limit);
-        if (res.data.success) {
-          dispatch(setAllJobs(res.data.data));
-        }
-      } catch (error) {
-        console.log(error);
+
+  const fetchJobsFn = async () => {
+    try {
+      const res = await fetchAllJobs(searchedQuery, page, limit);
+      if (res.data.success) {
+        dispatch(setAllJobs(res.data.data));
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     fetchJobsFn();
   }, [searchedQuery, page]);
+
   useEffect(() => {
-    return () => dispatch(setSearchedQuery(''));
+    return () => dispatch(setSearchedQuery(''));  //after unmounting component, clearing the search query.
   }, []);
+
   const totalPages = allJobs?.total
     ? Math.ceil(allJobs.total / allJobs.limit)
     : 1;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[80vh]">
       <div className="flex flex-col lg:flex-row gap-8">
@@ -97,21 +103,9 @@ export const Jobs = () => {
                 >
                   Previous
                 </Button>
-                <div className="flex gap-2">
-                  {[...Array(totalPages)].map((_, idx) => {
-                    const pageNum = idx + 1;
-                    return (
-                      <Button
-                        key={pageNum}
-                        variant={page === pageNum ? 'default' : 'outline'}
-                        className="px-4"
-                        onClick={() => setPage(pageNum)}
-                      >
-                        {pageNum}
-                      </Button>
-                    );
-                  })}
-                </div>
+                <span className='border p-2'>
+                  {page}
+                </span>
                 <Button
                   variant="outline"
                   disabled={page === totalPages}

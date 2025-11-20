@@ -2,53 +2,53 @@ import React, { useEffect, useState } from 'react';
 import { Badge } from '../components/ui/badge.jsx';
 import { Button } from '../components/ui/button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 import { applyJob, fetchJobDetail } from '@/api/job.api';
 import { checkUserApplied } from '@/api/submission.api';
 
 const JobDescription = () => {
-  const [singleJob, setSingleJob] = useState({});
+  const [singleJob, setSingleJob] = useState(null);
   const [isApplied, setIsApplied] = useState(false);
   const params = useParams();
   const jobId = params.id;
   const { user } = useSelector(store => store.auth);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const fetchSingleJob = async () => {
+    try {
+      const res = await fetchJobDetail(jobId);
+      if (res.data.success) {
+        setSingleJob(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkAppliedStatus = async () => {
+    try {
+      const res = await checkUserApplied(jobId);
+      if (res.data.success) {
+        setIsApplied(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchSingleJob = async () => {
-      try {
-        const res = await fetchJobDetail(jobId);
-        if (res.data.success) {
-          setSingleJob(res.data.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const checkAppliedStatus = async () => {
-      try {
-        const res = await checkUserApplied(jobId);
-        if (res.data.success) {
-          setIsApplied(res.data.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     fetchSingleJob();
     checkAppliedStatus();
-    }, [jobId, user._id]);
+  }, [jobId, user._id]);
 
   const applyJobHandler = async () => {
     try {
+      if (isApplied) return; //if already applied, dont take any action
       const res = await applyJob(jobId);
       if (res.data.success) {
-        setIsApplied(true); 
+        setIsApplied(true);
         setSingleJob(res.data.data);
         toast.success(res.data.message);
       }
@@ -94,7 +94,7 @@ const JobDescription = () => {
 
           <Button
             disabled={isApplied}
-            onClick={isApplied ? null : applyJobHandler}
+            onClick={applyJobHandler}
             className={`rounded-lg cursor-pointer bg-[#7209b7] hover:bg-[#5f32ad] 
               ${isApplied ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
@@ -107,80 +107,61 @@ const JobDescription = () => {
         </h1>
 
         <div className="my-4">
-          
           <h1 className="font-bold my-1">
-            
             Role:
             <span className="pl-4 font-normal text-gray-800">
-              
               {singleJob?.title}
             </span>
           </h1>
           <h1 className="font-bold my-1">
-            
             Company:
             <span className="pl-4 font-normal text-gray-800">
-              
               {singleJob?.company?.name}
             </span>
           </h1>
-          {singleJob.requirements && singleJob.requirements.length > 0 && (
+          {singleJob?.requirements?.length > 0 && (
             <h1 className="font-bold my-1 flex items-start">
-              
               Requirements:
               <span className="pl-2 font-normal text-gray-700 tracking-wide">
-                
                 {singleJob?.requirements?.join(' • ')}
               </span>
             </h1>
           )}
           <h1 className="font-bold my-1">
-            
             Location:
             <span className="pl-4 font-normal text-gray-800">
-              
               {singleJob?.location}
             </span>
           </h1>
           <h1 className="font-bold my-1">
-            
             Description:
             <span className="pl-4 font-normal text-gray-800">
-              
               {singleJob?.description}
             </span>
           </h1>
           <h1 className="font-bold my-1">
-            
             Experience Level:
             <span className="pl-4 font-normal text-gray-800">
-              
               {singleJob?.experienceLevel}
             </span>
           </h1>
           <h1 className="font-bold my-1">
-            
             Salary:
             <span className="pl-4 font-normal text-gray-800">
-              
               {singleJob?.salary} LPA
             </span>
           </h1>
           <h1 className="font-bold my-1">
-            
             Job Type:
             <span className="pl-4 font-normal text-gray-800">
-              
               {singleJob?.jobType}
             </span>
           </h1>
           <h1 className="font-bold my-1">
-            
             Posted Date:
             <span className="pl-4 font-normal text-gray-800">
-              
               {singleJob?.createdAt
-                ? new Date(singleJob.createdAt).toLocaleDateString('en-GB')
+                ? new Date(singleJob.createdAt).toLocaleDateString('en-IN')
                 : ''}
             </span>
           </h1>

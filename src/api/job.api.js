@@ -1,7 +1,8 @@
 import axios from '@/config/axiosConfig';
 
 export const recruiterJobs = (page, limit) => {
-  return axios.get(`/jobs/recruiter?page=${page}&limit=${limit}`);
+  const params = {limit, page}
+  return axios.get('/jobs/recruiter', {params});
 };
 
 export const createJob = data => {
@@ -9,7 +10,8 @@ export const createJob = data => {
 };
 
 export const fetchAllJobs = (q = '', page = 1, limit = 10) => {
-  return axios.get(`/jobs?q=${q}&page=${page}&limit=${limit}`);
+  const params = { limit, page, q }; 
+  return axios.get('/jobs', {params});
 };
 
 export const fetchJobDetail = id => {

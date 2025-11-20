@@ -22,24 +22,24 @@ export const AdminCompanies = () => {
     dispatch(setSearchCompanyByText(input));
   }, [input]);
 
-  useEffect(() => {
-    const fetchCompanies = async () => {
-      try {
-        setLoading(true);
-        const res = await recruiterCompanies(page, limit);
+  const fetchCompanies = async () => {
+    try {
+      setLoading(true);
+      const res = await recruiterCompanies(page, limit);
 
-        if (res.data.success) {
-          dispatch(setCompanies(res.data.data)); 
-          setLocalCompanies(res.data.data); 
-          setTotalPages(res.data.pagination.totalPages);
-        }
-      } catch (error) {
-        console.log('Pagination Error:', error);
-      } finally {
-        setLoading(false);
+      if (res.data.success) {
+        dispatch(setCompanies(res.data.data));
+        setLocalCompanies(res.data.data);
+        setTotalPages(res.data.pagination.totalPages);
       }
-    };
+    } catch (error) {
+      console.log('Pagination Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchCompanies();
   }, [page]);
 
@@ -68,23 +68,7 @@ export const AdminCompanies = () => {
         >
           Previous
         </Button>
-
-        <div className="flex gap-2">
-          {[...Array(totalPages)].map((_, idx) => {
-            const pageNum = idx + 1;
-            return (
-              <Button
-                key={pageNum}
-                variant={page === pageNum ? 'default' : 'outline'}
-                className="px-4"
-                onClick={() => setPage(pageNum)}
-              >
-                {pageNum}
-              </Button>
-            );
-          })}
-        </div>
-
+        <span className="border p-2">{page}</span>
         <Button
           variant="outline"
           disabled={page === totalPages}
