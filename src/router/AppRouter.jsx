@@ -2,7 +2,7 @@ import { Home } from '@/pages/Home';
 import { Jobs } from '@/pages/Jobs';
 import { Login } from '@/pages/Login';
 import { Profile } from '@/pages/Profile';
-import { Saved } from '@/pages/Saved';
+import {  SavedJobs } from '@/pages/Saved';
 import { Signup } from '@/pages/Signup';
 import PublicRoute from '@/routes/PublicRoute';
 import { createBrowserRouter } from 'react-router-dom';
@@ -13,6 +13,8 @@ import ProtectedRoute from '@/routes/ProtectedRoute';
 import CompanyCreate from '@/pages/admin/CreateCompany.jsx';
 import CreateJob from '@/pages/admin/CreateJob.jsx';
 import { Applicants } from '@/pages/admin/Applicants.jsx';
+import JobDescription from '@/pages/JobDescription.jsx';
+import { EditProfile } from '@/pages/EditProfile.jsx';
 
 export const appRouter = createBrowserRouter([
   {
@@ -56,10 +58,18 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
+        path: 'jobs/:id',
+        element: (
+          <ProtectedRoute roles={['student']}>
+            <JobDescription />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: 'jobs/saved',
         element: (
           <ProtectedRoute roles={['student']}>
-            <Saved />
+            <SavedJobs />
           </ProtectedRoute>
         ),
       },
@@ -68,6 +78,14 @@ export const appRouter = createBrowserRouter([
         element: (
           <ProtectedRoute roles={['student']}>
             <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'profile/edit',
+        element: (
+          <ProtectedRoute roles={['student']}>
+            <EditProfile />
           </ProtectedRoute>
         ),
       },
@@ -90,7 +108,7 @@ export const appRouter = createBrowserRouter([
       },
       {
         path: 'submission/applicants/:job_id',
-        element: <Applicants/>
+        element: <Applicants />,
       },
     ],
   },

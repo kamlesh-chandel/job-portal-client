@@ -34,53 +34,65 @@ export const CompaniesTable = () => {
   }, [searchCompanyByText, companies]);
 
   return (
-    <div>
-      <Table className="ml-25">
-        <TableCaption>A list of your registered companies</TableCaption>
+    <div className="min-h-[450px]">
+      <Table className="w-full">
+     
         <TableHeader>
-          <TableRow>
+          <TableRow className="h-14">
             <TableHead>Logo</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Date</TableHead>
           </TableRow>
         </TableHeader>
 
-        {companies.length <= 0 ? (
-          <span>You haven't Registered any company yet.</span>
-        ) : (
-          <>
-            {filterCompany.length <= 0 ? (
-              <span>0 Search Result</span>
-            ) : (
-              <>
-                {filterCompany.map(company => {
-                  return (
-                    <TableBody>
-                      <TableCell>
-                        <Avatar className="cursor-pointer">
-                          {company.logoUrl ? (
-                            <AvatarImage
-                              className="size-12 object-cover"
-                              src={company.logoUrl}
-                            />
-                          ) : (
-                            <AvatarFallback className="size-12 rounded-lg bg-primary/80 text-white flex items-center justify-center font-semibold text-base">
-                              {company?.name?.[0]?.toUpperCase()}
-                            </AvatarFallback>
-                          )}
-                        </Avatar>
-                      </TableCell>
-                      <TableCell>{company.name}</TableCell>
-                      <TableCell>
-                        {new Date(company.createdAt).toDateString()}
-                      </TableCell>
-                    </TableBody>
-                  );
-                })}
-              </>
-            )}
-          </>
-        )}
+        <TableBody>
+          {companies.length === 0 && (
+            <TableRow>
+              <TableCell
+                colSpan={3}
+                className="text-center text-muted-foreground py-10"
+              >
+                You haven't registered any company yet.
+              </TableCell>
+            </TableRow>
+          )}
+
+          {companies.length > 0 && filterCompany.length === 0 && (
+            <TableRow>
+              <TableCell
+                colSpan={3}
+                className="text-center text-muted-foreground py-10"
+              >
+                0 Search Results
+              </TableCell>
+            </TableRow>
+          )}
+
+          {filterCompany.map(company => (
+            <TableRow key={company.id} className="h-16">
+              <TableCell>
+                <Avatar className="cursor-pointer size-12">
+                  {company.logoUrl ? (
+                    <AvatarImage
+                      className="size-12 object-cover"
+                      src={company.logoUrl}
+                    />
+                  ) : (
+                    <AvatarFallback className="size-12 rounded-lg bg-primary/80 text-white flex items-center justify-center font-semibold text-base">
+                      {company?.name?.[0]?.toUpperCase()}
+                    </AvatarFallback>
+                  )}
+                </Avatar>
+              </TableCell>
+
+              <TableCell className="font-medium">{company.name}</TableCell>
+
+              <TableCell>
+                {new Date(company.createdAt).toDateString()}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
     </div>
   );
