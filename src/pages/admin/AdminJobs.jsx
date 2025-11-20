@@ -7,12 +7,12 @@ import AdminJobsTable from '../../components/AdminJobsTable.jsx';
 import { setSearchJobByText, setAllAdminJobs } from '../../redux/jobSlice';
 import { recruiterJobs } from '@/api/job.api.js';
 
+const LIMIT = 10;
 export const AdminJobs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [input, setInput] = useState('');
   const [page, setPage] = useState(1);
-  const [limit] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +24,7 @@ export const AdminJobs = () => {
     try {
       setLoading(true);
 
-      const res = await recruiterJobs(page, limit);
+      const res = await recruiterJobs(page, LIMIT);
 
       if (res.data.success) {
         const { items, total, limit } = res.data.data;

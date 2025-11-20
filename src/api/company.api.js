@@ -6,6 +6,10 @@ export const recruiterCompanies = (page, limit) => {
 };
 
 export const createCompany = form => {
-  return axios.post('/companies', form);
+  return axios.post('/companies', form, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 

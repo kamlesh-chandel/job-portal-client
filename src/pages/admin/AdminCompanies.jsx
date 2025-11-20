@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setSearchCompanyByText, setCompanies } from '../../redux/companySlice';
 import { recruiterCompanies } from '@/api/company.api';
 
+const LIMIT = 10;
 export const AdminCompanies = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -14,8 +15,7 @@ export const AdminCompanies = () => {
   const [input, setInput] = useState('');
   const [companies, setLocalCompanies] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit] = useState(5);
-  const [totalPages, setTotalPages] = useState(5);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const AdminCompanies = () => {
   const fetchCompanies = async () => {
     try {
       setLoading(true);
-      const res = await recruiterCompanies(page, limit);
+      const res = await recruiterCompanies(page, LIMIT);
 
       if (res.data.success) {
         dispatch(setCompanies(res.data.data));

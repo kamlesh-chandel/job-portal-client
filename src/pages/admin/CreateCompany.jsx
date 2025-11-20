@@ -67,12 +67,14 @@ const CompanyCreate = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('name', input.name);
-    formData.append('description', input.description);
-    formData.append('website', input.website);
-    formData.append('location', input.location);
-    if (input.file) formData.append('file', input.file);
+     const formData = new FormData();
+     formData.append('name', input.name);
+     formData.append('website', input.website);
+     formData.append('street', input.address.street);
+     formData.append('city', input.address.city);
+     formData.append('state', input.address.state);
+     formData.append('country', input.address.country);
+     if (input.file) formData.append('logo', input.file);
 
     try {
       setLoading(true);

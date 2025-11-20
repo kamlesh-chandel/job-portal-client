@@ -3,19 +3,18 @@ import { Job } from '@/components/Job';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAllJobs, setSearchedQuery } from '../redux/jobSlice';
 import { fetchAllJobs } from '@/api/job.api';
-import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
+const LIMIT = 10;
 export const Jobs = () => {
   const dispatch = useDispatch();
   const { searchedQuery, allJobs } = useSelector(store => store.job);
   const [page, setPage] = useState(1);
-  const limit = 6;
 
   const fetchJobsFn = async () => {
     try {
-      const res = await fetchAllJobs(searchedQuery, page, limit);
+      const res = await fetchAllJobs(searchedQuery, page, LIMIT);
       if (res.data.success) {
         dispatch(setAllJobs(res.data.data));
       }
