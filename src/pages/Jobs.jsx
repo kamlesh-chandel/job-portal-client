@@ -103,7 +103,7 @@ export const Jobs = () => {
                 >
                   Previous
                 </Button>
-                <span className='border p-2'>
+                <span className="border rounded-sm px-4 py-[5px] shadow-xs">
                   {page}
                 </span>
                 <Button
