@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppliedJobTable } from '@/components/AppliedJobTable.jsx';
 import { setAppliedJobs } from '@/redux/jobSlice.js';
-import { getAppliedJobs } from '@/api/job.api.js';
+import { getAppliedJobs } from '@/api/submission.api.js';
 import { useEffect } from 'react';
 import axios from '@/config/axiosConfig.js';
 import { setAuthUser } from '@/redux/authSlice';

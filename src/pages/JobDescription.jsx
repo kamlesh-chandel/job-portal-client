@@ -5,8 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
-import { applyJob, fetchJobDetail } from '@/api/job.api';
-import { checkUserApplied } from '@/api/submission.api';
+import { fetchJobDetail } from '@/api/job.api';
+import { applyJob, checkUserApplied } from '@/api/submission.api';
 
 const JobDescription = () => {
   const [singleJob, setSingleJob] = useState(null);
