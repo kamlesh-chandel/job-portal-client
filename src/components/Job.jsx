@@ -6,6 +6,7 @@ import { saveBookmark, deleteBookmark } from '@/api/bookmark.api.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { addBookmark, removeBookmarkById } from '@/redux/bookmarkSlice.js';
+import { Save, SaveOff } from 'lucide-react';
 
 export const Job = ({ job, fetchJobsFn }) => {
   const navigate = useNavigate();
@@ -51,22 +52,42 @@ export const Job = ({ job, fetchJobsFn }) => {
 
   return (
     <div className="group bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 card-hover">
-      <div className="flex items-center gap-3 mb-4">
-        <Avatar className="w-10 h-10">
-          {logo ? (
-            <AvatarImage src={logo} />
-          ) : (
-            <AvatarFallback className="bg-primary/80 text-white font-bold">
-              {companyName}
-            </AvatarFallback>
-          )}
-        </Avatar>
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <Avatar className="w-10 h-10">
+            {logo ? (
+              <AvatarImage src={logo} />
+            ) : (
+              <AvatarFallback className="bg-primary/80 text-white font-bold">
+                {companyName}
+              </AvatarFallback>
+            )}
+          </Avatar>
 
+          <div>
+            <h3 className="font-semibold text-lg">{job?.company?.name}</h3>
+            <p className="text-sm text-gray-500">India</p>
+          </div>
+        </div>
         <div>
-          <h3 className="font-semibold text-lg">{job?.company?.name}</h3>
-          <p className="text-sm text-gray-500">India</p>
+          {!isSaved ? (
+            <Button
+              onClick={handleSaveJob}
+              className="bg-primary text-white p-2 h-auto"
+            >
+              <Save />
+            </Button>
+          ) : (
+            <Button
+              onClick={handleRemoveJob}
+              className="bg-red-600 text-white hover:bg-red-700 p-2 h-auto"
+            >
+              <SaveOff />
+            </Button>
+          )}
         </div>
       </div>
+
       <h2 className="font-bold text-xl mb-2">{job?.title}</h2>
       <p className="text-gray-600 text-sm line-clamp-2">{job?.description}</p>
 
@@ -78,22 +99,6 @@ export const Job = ({ job, fetchJobsFn }) => {
         >
           View Details
         </Button>
-
-        {!isSaved ? (
-          <Button
-            onClick={handleSaveJob}
-            className="flex-1 bg-primary text-white"
-          >
-            Save Job
-          </Button>
-        ) : (
-          <Button
-            onClick={handleRemoveJob}
-            className="flex-1 bg-red-600 text-white hover:bg-red-700"
-          >
-            Remove
-          </Button>
-        )}
       </div>
     </div>
   );
