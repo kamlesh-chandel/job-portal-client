@@ -19,7 +19,6 @@ export const AppliedJobTable = () => {
   };
 
   const renderJobStatus = status => {
-    console.log(status)
     switch (status) {
       case 'pending':
         return (
@@ -64,6 +63,7 @@ export const AppliedJobTable = () => {
         );
     }
   };
+
   return (
     <div className="mb-10">
       <Table>
