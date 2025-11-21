@@ -52,7 +52,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8">
           <ul className="flex font-medium items-center gap-6">
             <ul className="flex font-medium items-center gap-6">
-              {NAV_ITEMS.filter(item => item.roles.includes(user?.role)).map(
+              {NAV_ITEMS.filter(item => item?.roles?.includes(user?.role))?.map(
                 nav => (
                   <li key={nav.path}>
                     <Link

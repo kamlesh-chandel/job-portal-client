@@ -24,13 +24,12 @@ export const Profile = () => {
   const handleProfilePhotoChange = e => {
     const file = e.target.files[0];
     if (file) {
-       
-     setProfilePhotoFile(file);
-     void updatePhoto(file);
+      setProfilePhotoFile(file);
+      void updatePhoto(file);
     }
   };
 
-  const updatePhoto = async (file) => {
+  const updatePhoto = async file => {
     const formData = new FormData();
     formData.append('profile', file);
 
@@ -160,7 +159,7 @@ export const Profile = () => {
             <h3 className="text-xl font-semibold text-gray-900 mb-4">Skills</h3>
             <div className="flex flex-wrap gap-2">
               {user.profile.skills.length > 0 ? (
-                user.profile.skills.map((skill, index) => (
+                user.profile?.skills?.map((skill, index) => (
                   <Badge
                     key={index}
                     className="bg-primary/10 text-primary border-primary/20 px-3 py-1 text-sm rounded-lg"

@@ -1,26 +1,16 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from '../components/ui/table.jsx';
-import { Edit2, MoreHorizontal, Newspaper } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '../components/ui/popover.jsx';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 export const CompaniesTable = () => {
-  const navigate = useNavigate();
-
   const { companies, searchCompanyByText } = useSelector(
     store => store.company
   );
@@ -36,7 +26,6 @@ export const CompaniesTable = () => {
   return (
     <div className="min-h-[450px]">
       <Table className="w-full">
-     
         <TableHeader>
           <TableRow className="h-14">
             <TableHead>Logo</TableHead>
@@ -68,7 +57,7 @@ export const CompaniesTable = () => {
             </TableRow>
           )}
 
-          {filterCompany.map(company => (
+          {filterCompany?.map(company => (
             <TableRow key={company.id} className="h-16">
               <TableCell>
                 <Avatar className="cursor-pointer size-12">

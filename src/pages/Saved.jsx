@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { Job } from '../components/Job.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { motion } from 'framer-motion';
 import { getBookmarkJobs } from '@/api/bookmark.api.js';
 import { setBookmarkJobs } from '@/redux/bookmarkSlice.js';
 import { toast } from 'sonner';
 
 export const SavedJobs = () => {
-
   const dispatch = useDispatch();
 
   const fetchBookmarkJobs = async () => {
@@ -37,7 +35,7 @@ export const SavedJobs = () => {
         ) : (
           <div className="flex-1 h-[88vh] overflow-y-auto pb-5">
             <div className="grid grid-cols-3 gap-4">
-              {bookmarkJobs.items.map(bookmark => (
+              {bookmarkJobs?.items?.map(bookmark => (
                 <motion.div
                   initial={{ opacity: 0, x: 100 }}
                   animate={{ opacity: 1, x: 0 }}

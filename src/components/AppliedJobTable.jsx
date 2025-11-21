@@ -84,7 +84,7 @@ export const AppliedJobTable = () => {
               </TableCell>
             </TableRow>
           ) : (
-            appliedJobs.map((item, idx) => (
+            appliedJobs?.map((item, idx) => (
               <TableRow key={item._id ?? idx} className="h-16">
                 <TableCell>{formatDate(item.created_at)}</TableCell>
 
@@ -92,7 +92,9 @@ export const AppliedJobTable = () => {
                 <TableCell>
                   {item.job_id?.company_id?.name ?? 'Unknown'}
                 </TableCell>
-                <TableCell className="text-right">{renderJobStatus(item.status)}</TableCell>
+                <TableCell className="text-right">
+                  {renderJobStatus(item.status)}
+                </TableCell>
               </TableRow>
             ))
           )}

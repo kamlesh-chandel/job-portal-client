@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAllJobs, setSearchedQuery } from '../redux/jobSlice';
 import { fetchAllJobs } from '@/api/job.api';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button'; 
-import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 const LIMIT = 10;
 export const Jobs = () => {
@@ -28,7 +27,7 @@ export const Jobs = () => {
   }, [searchedQuery, page]);
 
   useEffect(() => {
-    return () => dispatch(setSearchedQuery(''));  //after unmounting component, clearing the search query.
+    return () => dispatch(setSearchedQuery('')); //after unmounting component, clearing the search query.
   }, []);
 
   const totalPages = allJobs?.total
@@ -82,7 +81,7 @@ export const Jobs = () => {
           ) : (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {allJobs.items.map(job => (
+                {allJobs?.items?.map(job => (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

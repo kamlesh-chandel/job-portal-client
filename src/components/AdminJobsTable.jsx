@@ -8,7 +8,11 @@ import {
   TableRow,
 } from '../components/ui/table.jsx';
 import { Eye, MoreHorizontal } from 'lucide-react';
-import { Popover, PopoverContent, PopoverTrigger } from '../components/ui/popover.jsx';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '../components/ui/popover.jsx';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -28,7 +32,6 @@ const AdminJobsTable = () => {
   return (
     <div className="min-h-[450px]">
       <Table className="w-full">
-      
         <TableHeader>
           <TableRow className="h-14">
             <TableHead>Company Name</TableHead>
@@ -60,7 +63,7 @@ const AdminJobsTable = () => {
               </TableCell>
             </TableRow>
           )}
-          {filterJobs.map(job => (
+          {filterJobs?.map(job => (
             <TableRow key={job.id} className="h-16">
               <TableCell className="font-medium">{job.company?.name}</TableCell>
 

@@ -65,7 +65,7 @@ const ApplicantsTable = ({ fetchApplicants }) => {
               </TableCell>
             </TableRow>
           ) : (
-            jobSubmissions.map(application => (
+            jobSubmissions?.map(application => (
               <TableRow key={application._id}>
                 <TableCell>{application.applicant_id.name}</TableCell>
                 <TableCell>{application.applicant_id.email}</TableCell>
@@ -101,7 +101,7 @@ const ApplicantsTable = ({ fetchApplicants }) => {
 
                     <PopoverContent className="w-40">
                       <div className="flex flex-col gap-2">
-                        {statuses.map(s => (
+                        {statuses?.map(s => (
                           <div
                             key={s}
                             onClick={() => {

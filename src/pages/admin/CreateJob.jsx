@@ -163,7 +163,7 @@ const CreateJob = () => {
                 <SelectValue placeholder="Select job type" />
               </SelectTrigger>
               <SelectContent>
-                {jobTypes.map(t => (
+                {jobTypes?.map(t => (
                   <SelectItem value={t} key={t}>
                     {t}
                   </SelectItem>
@@ -199,7 +199,7 @@ const CreateJob = () => {
                 <SelectValue placeholder="Select a company" />
               </SelectTrigger>
               <SelectContent>
-                {companies.map(c => (
+                {companies?.map(c => (
                   <SelectItem value={c.name} key={c._id}>
                     {c.name}
                   </SelectItem>
