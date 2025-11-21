@@ -1,15 +1,21 @@
 import axios from '@/config/axiosConfig';
 
 export const getApplicants = id => {
-  return axios.get('/submissions/applicants', { jobId: id });
+  return axios.get('/submissions/applicants', {
+    params: { jobId: id },
+  });
 };
 
 export const updateSubmissionStatus = (submissionId, status) => {
-  return axios.put(`/submissions/${submissionId}`, { status });
+  return axios.patch(`/submissions/${submissionId}`, { status });
 };
 
 export const checkUserApplied = jobId => {
-  return axios.get('/submissions/check', { jobId });
+  return axios.get('/submissions/check', { 
+    params: {
+      jobId: jobId
+    }
+   });
 };
 
 export const getAppliedJobs = () => {

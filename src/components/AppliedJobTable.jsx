@@ -63,6 +63,7 @@ export const AppliedJobTable = () => {
         );
     }
   };
+
   return (
     <div className="mb-10">
       <Table>
@@ -91,7 +92,7 @@ export const AppliedJobTable = () => {
                 <TableCell>
                   {item.job_id?.company_id?.name ?? 'Unknown'}
                 </TableCell>
-                <TableCell className="text-right">{renderJobStatus()}</TableCell>
+                <TableCell className="text-right">{renderJobStatus(item.status)}</TableCell>
               </TableRow>
             ))
           )}

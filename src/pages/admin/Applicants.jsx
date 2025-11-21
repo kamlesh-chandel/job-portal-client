@@ -24,6 +24,7 @@ export const Applicants = () => {
   useEffect(() => {
     fetchApplicants();
   }, []);
+
   const { jobSubmissions } = useSelector(store => store.submission);
   return (
     <div className="max-w-7xl mx-auto">
