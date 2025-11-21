@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBookmarkJobs } from '@/api/bookmark.api.js';
 import { setBookmarkJobs } from '@/redux/bookmarkSlice.js';
 import { toast } from 'sonner';
+import { motion } from 'framer-motion';
 
 export const SavedJobs = () => {
   const dispatch = useDispatch();

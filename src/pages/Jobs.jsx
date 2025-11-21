@@ -5,6 +5,7 @@ import { setAllJobs, setSearchedQuery } from '../redux/jobSlice';
 import { fetchAllJobs } from '@/api/job.api';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 
 const LIMIT = 10;
 export const Jobs = () => {
